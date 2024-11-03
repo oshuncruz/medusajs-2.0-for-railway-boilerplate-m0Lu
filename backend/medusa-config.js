@@ -15,7 +15,11 @@ import {
   STORE_CORS,
   STRIPE_API_KEY,
   STRIPE_WEBHOOK_SECRET,
-  WORKER_MODE
+  WORKER_MODE,
+  PAYPAL_SANDBOX,
+  PAYPAL_CLIENT_ID,
+  PAYPAL_CLIENT_SECRET,
+  PAYPAL_AUTH_WEBHOOK_ID
 } from '@/lib/constants';
 
 loadEnv(process.env.NODE_ENV, process.cwd());
@@ -110,6 +114,16 @@ const medusaConfig = {
               webhookSecret: STRIPE_WEBHOOK_SECRET,
             },
           },
+          {
+            resolve: 'medusa-payment-paypal', // add PayPal payment provider here
+            id: 'paypal',
+            options: {
+              sandbox: PAYPAL_SANDBOX,
+              client_id: PAYPAL_CLIENT_ID,
+              client_secret: PAYPAL_CLIENT_SECRET,
+              auth_webhook_id: PAYPAL_AUTH_WEBHOOK_ID,
+            }
+          }
         ],
       },
     }] : [])
